@@ -24,6 +24,7 @@ jobs:
           BRANCH: |
             master:master branch
             dev:dev branch
+            !default:other
       - name: Step 2.3 - Echo Environment Settings
         run: |
           echo ${{ BRANCH }}
