@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: GitHub Actions with Maven
+name: Build, Test, and Scan
 
 on:
   push:
@@ -17,6 +17,16 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Step 1 - Checkout branch from GitHub 
         uses: actions/checkout@v2
+
+      - name: Step 2 - Set Environment Variables By Branch
+        uses: iamtheyammer/branch-env-vars@v1.1.2
+        with:
+          BRANCH: |
+            master:master branch
+            dev:dev branch
+      - name: Step 2.3 - Echo Environment Settings
+        run: |
+          echo ${{ BRANCH }}
 
       # Runs a single command using the runners shell
       - name: Step 2 - Set up JDK 1.8
