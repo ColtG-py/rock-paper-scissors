@@ -43,11 +43,11 @@ jobs:
             !default:false
       - name: Step 2.3 - Echo Environment Settings
         run: |
-          echo ${{ env.BRANCH }}
-          echo ${{ env.BUILD }}
-          echo ${{ env.TEST_AND_SCAN }}
-          echo ${{ env.RELEASE }}
-          echo ${{ env.DEPLOY }}
+          echo branch:  ${{ env.BRANCH }}
+          echo build?   ${{ env.BUILD }}
+          echo test?    ${{ env.TEST_AND_SCAN }}
+          echo release? ${{ env.RELEASE }}
+          echo deploy?  ${{ env.DEPLOY }}
 
       # Runs a single command using the runners shell
       - name: Step 2 - Set up JDK 1.8
@@ -72,14 +72,6 @@ jobs:
         with:
           name: github-actions-artifact
           path: staging
-  
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Lets see if env is accessible here
-        run: |
-          echo ${{ env.BRANCH }}
-          echo ${{ env.BUILD }}
 
         
         
