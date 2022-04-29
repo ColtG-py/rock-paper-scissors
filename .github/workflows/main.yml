@@ -1,77 +1,146 @@
-# This is a basic workflow to help you get started with Actions
+# # This is a basic workflow to help you get started with Actions
 
-name: Build, Test, and Scan
+# name: Build, Test, and Scan
 
-on:
-  push:
-  pull_request:
-    branches: [ master, dev ]
-jobs:
+# on:
+#   # This is the phase where we are just testing to see if code can get pulled upstream
+#   pull_request:
+#     branches: [ master, dev ]
+# jobs:
+#   run:
+#     # The type of runner that the job will run on
+#     runs-on: ubuntu-latest
 
-  run:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
+#     # Steps represent a sequence of tasks that will be executed as part of the job
+#     steps:
+#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - name: Step 1 - Checkout branch from GitHub 
+#         uses: actions/checkout@v2
 
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - name: Step 1 - Checkout branch from GitHub 
-        uses: actions/checkout@v2
+#       - name: Step 2 - Set Environment Variables By Branch
+#         uses: iamtheyammer/branch-env-vars@v1.1.2
+#         with:
+#           BRANCH: |
+#             master:master branch
+#             dev:dev branch
+#             !default:other
+#           BUILD: |
+#             master:true
+#             dev:true
+#             !default:true
+#           TEST_AND_SCAN: |
+#             master:true
+#             dev:true
+#             !default:true
+#           RELEASE: |
+#             master:false
+#             dev:false
+#             !default:false
+#           DEPLOY: |
+#             master:false
+#             dev:false
+#             !default:false
+#       - name: Step 2.3 - Echo Environment Settings
+#         run: |
+#           echo branch:  ${{ env.BRANCH }}
+#           echo build?   ${{ env.BUILD }}
+#           echo test?    ${{ env.TEST_AND_SCAN }}
+#           echo release? ${{ env.RELEASE }}
+#           echo deploy?  ${{ env.DEPLOY }}
 
-      - name: Step 2 - Set Environment Variables By Branch
-        uses: iamtheyammer/branch-env-vars@v1.1.2
-        with:
-          BRANCH: |
-            master:master branch
-            dev:dev branch
-            !default:other
-          BUILD: |
-            master:true
-            dev:true
-            !default:true
-          TEST_AND_SCAN: |
-            master:true
-            dev:true
-            !default:true
-          RELEASE: |
-            master:true
-            dev:true
-            !default:false
-          DEPLOY: |
-            master:false
-            dev:true
-            !default:false
-      - name: Step 2.3 - Echo Environment Settings
-        run: |
-          echo branch:  ${{ env.BRANCH }}
-          echo build?   ${{ env.BUILD }}
-          echo test?    ${{ env.TEST_AND_SCAN }}
-          echo release? ${{ env.RELEASE }}
-          echo deploy?  ${{ env.DEPLOY }}
-
-      # Runs a single command using the runners shell
-      - name: Step 2 - Set up JDK 1.8
-        uses: actions/setup-java@v1
-        with:
-          java-version: 1.8
+#       # Runs a single command using the runners shell
+#       - name: Step 2 - Set up JDK 1.8
+#         uses: actions/setup-java@v1
+#         with:
+#           java-version: 1.8
     
-      - name: Step 3 - Build Maven Project
-        run: |
-          mvn -B package --file pom.xml
-          mkdir staging && cp target/*.jar staging
+#       - name: Step 3 - Build Maven Project
+#         run: |
+#           mvn -B package --file pom.xml
+#           mkdir staging && cp target/*.jar staging
 
-      - name: Step 4 - Set up a cache for Maven
-        uses: actions/cache@v2
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+#       - name: Step 4 - Set up a cache for Maven
+#         uses: actions/cache@v2
+#         with:
+#           path: ~/.m2
+#           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+#           restore-keys: ${{ runner.os }}-m2
 
-      - name: Step 5 - Persist workflow data as artifacts
-        uses: actions/upload-artifact@v2
-        with:
-          name: github-actions-artifact
-          path: staging
+#       - name: Step 5 - Persist workflow data as artifacts
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: github-actions-artifact
+#           path: staging
+  
+#   # This is the phase where we want to fully deploy the app to the appropriate environment
+#   push:
+#     branches: [ master, dev ]
+# jobs:
+
+#   run:
+#     # The type of runner that the job will run on
+#     runs-on: ubuntu-latest
+
+#     # Steps represent a sequence of tasks that will be executed as part of the job
+#     steps:
+#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - name: Step 1 - Checkout branch from GitHub 
+#         uses: actions/checkout@v2
+
+#       - name: Step 2 - Set Environment Variables By Branch
+#         uses: iamtheyammer/branch-env-vars@v1.1.2
+#         with:
+#           BRANCH: |
+#             master:master branch
+#             dev:dev branch
+#             !default:other
+#           BUILD: |
+#             master:true
+#             dev:true
+#             !default:true
+#           TEST_AND_SCAN: |
+#             master:true
+#             dev:true
+#             !default:true
+#           RELEASE: |
+#             master:true
+#             dev:true
+#             !default:false
+#           DEPLOY: |
+#             master:false
+#             dev:true
+#             !default:false
+#       - name: Step 2.3 - Echo Environment Settings
+#         run: |
+#           echo branch:  ${{ env.BRANCH }}
+#           echo build?   ${{ env.BUILD }}
+#           echo test?    ${{ env.TEST_AND_SCAN }}
+#           echo release? ${{ env.RELEASE }}
+#           echo deploy?  ${{ env.DEPLOY }}
+
+#       # Runs a single command using the runners shell
+#       - name: Step 2 - Set up JDK 1.8
+#         uses: actions/setup-java@v1
+#         with:
+#           java-version: 1.8
+    
+#       - name: Step 3 - Build Maven Project
+#         run: |
+#           mvn -B package --file pom.xml
+#           mkdir staging && cp target/*.jar staging
+
+#       - name: Step 4 - Set up a cache for Maven
+#         uses: actions/cache@v2
+#         with:
+#           path: ~/.m2
+#           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+#           restore-keys: ${{ runner.os }}-m2
+
+#       - name: Step 5 - Persist workflow data as artifacts
+#         uses: actions/upload-artifact@v2
+#         with:
+#           name: github-actions-artifact
+#           path: staging
 
         
         
