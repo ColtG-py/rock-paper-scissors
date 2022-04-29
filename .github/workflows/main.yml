@@ -72,6 +72,16 @@ jobs:
         with:
           name: github-actions-artifact
           path: staging
+  
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lets see if env is accessible here
+        run: |
+          echo ${{ env.BRANCH }}
+          echo ${{ env.BUILD }}
+
+        
         
 
 
