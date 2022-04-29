@@ -8,7 +8,7 @@ on:
     branches: [ master, dev ]
 jobs:
 
-  build:
+  run:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -25,9 +25,29 @@ jobs:
             master:master branch
             dev:dev branch
             !default:other
+          BUILD: |
+            master:true
+            dev:true
+            !default:true
+          TEST_AND_SCAN: |
+            master:true
+            dev:true
+            !default:true
+          RELEASE: |
+            master:true
+            dev:true
+            !default:false
+          DEPLOY: |
+            master:false
+            dev:true
+            !default:false
       - name: Step 2.3 - Echo Environment Settings
         run: |
-          echo ${{ env.BRANCH }}
+          echo branch:  ${{ env.BRANCH }}
+          echo build?   ${{ env.BUILD }}
+          echo test?    ${{ env.TEST_AND_SCAN }}
+          echo release? ${{ env.RELEASE }}
+          echo deploy?  ${{ env.DEPLOY }}
 
       # Runs a single command using the runners shell
       - name: Step 2 - Set up JDK 1.8
@@ -52,6 +72,8 @@ jobs:
         with:
           name: github-actions-artifact
           path: staging
+
+        
         
 
 
