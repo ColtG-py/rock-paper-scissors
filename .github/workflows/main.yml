@@ -72,8 +72,6 @@ jobs:
           name: github-actions-artifact
           path: staging
   
-
-on:
   # This is the phase where we want to fully deploy the app to the appropriate environment
   push:
     branches: [ master, dev ]
