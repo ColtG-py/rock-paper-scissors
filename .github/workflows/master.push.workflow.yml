@@ -4,7 +4,7 @@ name: MASTER PUSH - Build, Test, Scan, Release
 
 on:
   push:
-    branches: dev
+    branches: master
 jobs:
   run:
     # The type of runner that the job will run on
