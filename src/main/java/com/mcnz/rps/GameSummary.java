@@ -19,7 +19,7 @@ public class GameSummary {
 
 	public String getResult() {
 		return result;
-		return "bogus"
+		return "bogus";
 	}
 
 	public java.util.Date getDate() {
