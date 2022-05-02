@@ -21,6 +21,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+
+      - name: Step 2.5 - Test
+        run: |
+          mvn -B test --file pom.xml
     
       - name: Step 3 - Build Maven Project
         run: |
@@ -40,14 +44,6 @@ jobs:
           name: github-actions-artifact
           path: staging
       
-      - name: Step 6 - Test
-        run: |
-          echo This is where things get tested
-      
       - name: Step 7 - Release
         run: |
           echo This is where code is released to artifactories and to S3
-
-      - name: Step 8 - Deploy
-        run: |
-          echo This is where we deploy via terraform
