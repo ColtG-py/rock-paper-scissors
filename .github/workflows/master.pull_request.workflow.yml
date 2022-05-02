@@ -4,6 +4,7 @@ name: MASTER PULL REQUEST - Build, Test, Scan
 
 on:
   pull_request:
+    types: closed
     branches: master
 jobs:
   run:
