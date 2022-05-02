@@ -44,9 +44,15 @@ jobs:
           name: github-actions-artifact
           path: staging
       
+      - name: Step 6 - Configure AWS credentials from Test account
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          role-to-assume: arn:aws:iam::874191363693:role/CloudFormationRole
+          aws-region: us-east-1
+        
       - name: Step 7 - Release
         run: |
-          echo This is where code is released to artifactories and to S3
+          aws s3 sync . s3://test-app-staging-env
 
       - name: Step 8 - Deploy
         run: |
