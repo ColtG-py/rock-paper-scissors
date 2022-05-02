@@ -1,11 +1,10 @@
-name: DEV PULL REQUEST - Build, Test, Scan
+name: MASTER PUSH - Build, Test, Scan, Release
 
-# OBJECTIVE: Compile + Test code to ensure it's good to be merged upstream
+# OBJECTIVE: Code is ready, time to release to the prod environment!
 
 on:
-  pull_request:
-    types: closed
-    branches: dev
+  workflow_dispatch:
+    branches: master
 jobs:
   run:
     # The type of runner that the job will run on
@@ -44,3 +43,11 @@ jobs:
       - name: Step 6 - Test
         run: |
           echo This is where things get tested
+      
+      - name: Step 7 - Release
+        run: |
+          echo This is where code is released to artifactories and to S3
+
+      - name: Step 8 - Deploy
+        run: |
+          echo This is where we deploy via terraform

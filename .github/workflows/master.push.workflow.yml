@@ -1,6 +1,6 @@
 name: MASTER PUSH - Build, Test, Scan, Release
 
-# OBJECTIVE: Code is ready, time to deploy to the dev environment!
+# OBJECTIVE: Code is ready, time to release to the prod environment!
 
 on:
   push:
