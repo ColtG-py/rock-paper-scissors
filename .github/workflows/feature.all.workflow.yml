@@ -4,11 +4,12 @@ name: FEATURE PUSH / PULL REQUEST - Build, Test, Scan
 
 on:
   push:
+    branches:
+      - "feature/*"
   pull_request:
     types: opened
-    branches-ignore:
-      - '!master'   # excludes master
-      - '!dev'      # excludes dev
+    branches:
+      - "feature/*"
 jobs:
   run:
     # The type of runner that the job will run on
