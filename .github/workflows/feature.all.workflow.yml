@@ -4,10 +4,12 @@ name: FEATURE PUSH / PULL REQUEST - Build, Test, Scan
 
 on:
   push:
+    branches:
+      - "feature/*"
   pull_request:
-    branches-ignore:
-      - '!master'   # excludes master
-      - '!dev'      # excludes dev
+    types: opened
+    branches:
+      - "feature/*"
 jobs:
   run:
     # The type of runner that the job will run on
@@ -24,6 +26,10 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+
+      - name: Step 2.5 - Test
+        run: |
+          mvn -B test --file pom.xml
     
       - name: Step 3 - Build Maven Project
         run: |
@@ -42,7 +48,4 @@ jobs:
         with:
           name: github-actions-artifact
           path: staging
-      
-      - name: Step 6 - Test
-        run: |
-          echo This is where things get tested
+    
