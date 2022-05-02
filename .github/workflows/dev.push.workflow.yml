@@ -42,7 +42,7 @@ jobs:
       
       - name: Step 6 - Test
         run: |
-          echo This is where things get tested
+          mvn -B test --file pom.xml
       
       - name: Step 7 - Release
         run: |
