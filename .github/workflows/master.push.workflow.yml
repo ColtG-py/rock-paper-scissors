@@ -43,7 +43,17 @@ jobs:
         with:
           name: github-actions-artifact
           path: staging
-      
+
+      - name: Step 6 - Configure AWS credentials from Test account
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::874191363693:role/CloudFormationRole
+          role-duration-seconds: 1200
+          aws-region: us-east-1
+          role-session-name: TestAccSession
+        
       - name: Step 7 - Release
         run: |
-          echo This is where code is released to artifactories and to S3
+          aws s3 sync target/ s3://test-app-staging-env/prod/
