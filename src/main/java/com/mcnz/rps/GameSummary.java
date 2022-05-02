@@ -8,18 +8,18 @@ public class GameSummary {
 	java.util.Date date;
 	
 	public String getClientGesture() {
-		//return clientGesture;
-		return "bogus";
+		return clientGesture;
+		//return "bogus";
 	}
 
 	public String getServerGesture() {
-		//return serverGesture;
-		return "bogus";
+		return serverGesture;
+		//return "bogus";
 	}
 
 	public String getResult() {
-		//return result;
-		return "bogus";
+		return result;
+		//return "bogus";
 	}
 
 	public java.util.Date getDate() {
