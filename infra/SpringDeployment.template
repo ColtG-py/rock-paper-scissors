@@ -64,7 +64,8 @@ Resources:
           - Sid: ''
             Effect: Allow
             Principal:
-              Service: !Ref BeanstalkService
+              Service: 
+                - elasticbeanstalk.amazonaws.com
             Action: 'sts:AssumeRole'
             Condition:
               StringEquals:
@@ -109,7 +110,7 @@ Resources:
           - Effect: Allow
             Principal:
               Service:
-                - !Ref Ec2Service
+                - ec2.amazonaws.com
             Action:
               - 'sts:AssumeRole'
       Policies:
