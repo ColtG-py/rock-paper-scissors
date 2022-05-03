@@ -36,7 +36,7 @@ Resources:
       - Namespace: aws:elasticbeanstalk:environment
         OptionName: EnvironmentType
         Value: LoadBalanced
-      SolutionStackName: Corretto 11 running on 64bit Amazon Linux 2/3.2.14
+      SolutionStackName: 64bit Amazon Linux 2 v3.2.14 running Corretto 11
   SpringBootBeanstalkEnvironment:
     Type: AWS::ElasticBeanstalk::Environment
     Properties:
