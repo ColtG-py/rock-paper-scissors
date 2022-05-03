@@ -5,6 +5,11 @@ name: DEV PUSH - Build, Test, Scan, Release, Deploy
 on:
   push:
     branches: dev
+
+env:
+  SOURCE_CODE_BUCKET: test-app-staging-env/dev
+  SOURCE_BUNDLE_NAME: roshambo-0.0.1-SNAPSHOT.jar
+
 jobs:
   run:
     # The type of runner that the job will run on
@@ -58,6 +63,9 @@ jobs:
         run: |
           aws s3 sync target/ s3://test-app-staging-env/dev/
 
-      - name: Step 8 - Deploy
-        run: |
-          echo This is where we deploy via terraform
+      - name: Step 8 - Deploy to AWS CloudFormation
+        uses: aws-actions/aws-cloudformation-github-deploy@v1
+        with:
+          name: RoShamBo
+          template: infra/SpringDeployment.yaml
+          parameter-overrides: "SourceCodeBucket=myValue,SourceBundleName=${{ secrets.MY_SECRET_VALUE }}"
