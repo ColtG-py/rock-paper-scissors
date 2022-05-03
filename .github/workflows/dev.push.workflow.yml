@@ -68,4 +68,4 @@ jobs:
         with:
           name: RoShamBo
           template: infra/SpringDeployment.yaml
-          parameter-overrides: "SourceCodeBucket=myValue,SourceBundleName=${{ secrets.MY_SECRET_VALUE }}"
+          parameter-overrides: "SourceCodeBucket=$SOURCE_CODE_BUCKET,SourceBundleName=$SOURCE_BUNDLE_NAME"
