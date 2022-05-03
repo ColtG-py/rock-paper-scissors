@@ -7,7 +7,7 @@ on:
     branches: dev
 
 env:
-  SOURCE_CODE_BUCKET: test-app-staging-env/dev
+  SOURCE_CODE_BUCKET: test-app-staging-env/dev/deployment
   SOURCE_BUNDLE_NAME: roshambo-0.0.1-SNAPSHOT.jar
 
 jobs:
@@ -69,4 +69,4 @@ jobs:
         with:
           name: RoShamBo
           template: infra/SpringDeployment.template
-          parameter-overrides: "SourceCodeBucket=$SOURCE_CODE_BUCKET,SourceBundleName=$SOURCE_BUNDLE_NAME"
+          parameter-overrides: "SourceCodeBucket=${SOURCE_CODE_BUCKET},SourceBundleName=${SOURCE_BUNDLE_NAME}"
