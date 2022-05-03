@@ -127,28 +127,24 @@ Resources:
                 Resource:
                   - !Join 
                     - ''
-                    - - 'arn:'
-                      - !Ref Partition
+                    - - 'arn:aws'
                       - ':s3:::elasticbeanstalk-*-'
                       - !Ref 'AWS::AccountId'
                   - !Join 
                     - ''
-                    - - 'arn:'
-                      - !Ref Partition
+                    - - 'arn:aws'
                       - ':s3:::elasticbeanstalk-*-'
                       - !Ref 'AWS::AccountId'
                       - /*
                   - !Join 
                     - ''
-                    - - 'arn:'
-                      - !Ref Partition
+                    - - 'arn:aws'
                       - ':s3:::elasticbeanstalk-*-'
                       - !Ref 'AWS::AccountId'
                       - '-*'
                   - !Join 
                     - ''
-                    - - 'arn:'
-                      - !Ref Partition
+                    - - 'arn:aws'
                       - ':s3:::elasticbeanstalk-*-'
                       - !Ref 'AWS::AccountId'
                       - '-*/*'
@@ -186,8 +182,7 @@ Resources:
                 Resource:
                   - !Join 
                     - ''
-                    - - 'arn:'
-                      - !Ref Partition
+                    - - 'arn:aws'
                       - ':dynamodb:*:'
                       - !Ref 'AWS::AccountId'
                       - ':table/*-stack-AWSEBWorkerCronLeaderRegistry*'
