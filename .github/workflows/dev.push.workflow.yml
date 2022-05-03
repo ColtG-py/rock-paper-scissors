@@ -61,11 +61,12 @@ jobs:
         
       - name: Step 7 - Release
         run: |
-          aws s3 sync target/ s3://test-app-staging-env/dev/
+          aws s3 sync target/ s3://test-app-staging-env/dev/deployment/
+          aws s3 sync infra/ s3://test-app-staging-env/dev/stack/
 
       - name: Step 8 - Deploy to AWS CloudFormation
         uses: aws-actions/aws-cloudformation-github-deploy@v1
         with:
           name: RoShamBo
-          template: infra/SpringDeployment.yaml
+          template: infra/SpringDeployment.template
           parameter-overrides: "SourceCodeBucket=$SOURCE_CODE_BUCKET,SourceBundleName=$SOURCE_BUNDLE_NAME"
