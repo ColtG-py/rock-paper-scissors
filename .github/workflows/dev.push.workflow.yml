@@ -56,7 +56,7 @@ jobs:
         
       - name: Step 7 - Release
         run: |
-          aws s3 sync . s3://test-app-staging-env
+          aws s3 sync target/ s3://test-app-staging-env/dev/
 
       - name: Step 8 - Deploy
         run: |
