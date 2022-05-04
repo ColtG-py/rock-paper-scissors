@@ -67,7 +67,7 @@ jobs:
         id: maven-release
 
       - name: Step 6.5 - Echo Maven Release
-        run: echo "test value ${{ needs.build_and_test.outputs.release_version }}"
+        run: echo "test value ${{ steps.maven-release.outputs.test }}"
         
       - name: Step 7 - Release
         run: |
