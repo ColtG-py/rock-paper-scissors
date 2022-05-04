@@ -18,13 +18,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
-      - name: Step 0 - Collect Maven Release Variable
-        run: echo '::set-output name=test::$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)'
-        id: maven-release
-        
-      - name: Step 0.5 - Echo Maven Release
-        run: echo "test value ${{ steps.maven-release.outputs.test }}"
-
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Step 1 - Checkout branch from GitHub 
         uses: actions/checkout@v2
@@ -56,4 +49,11 @@ jobs:
         with:
           name: github-actions-artifact
           path: staging
+
+      - name: Step 6 - Collect Maven Release Variable
+        run: echo '::set-output name=test::$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)'
+        id: maven-release
+
+      - name: Step 6.5 - Echo Maven Release
+        run: echo "test value ${{ steps.maven-release.outputs.test }}"
     
