@@ -15,10 +15,6 @@ jobs:
   run:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-    env:
-      JAVA_HOME: /usr/lib/jvm/java-17-openjdk/
-    with:
-      ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
