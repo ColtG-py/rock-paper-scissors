@@ -61,18 +61,13 @@ jobs:
           role-session-name: TestAccSession
 
       - name: Step 6 - Collect Maven Release Variable
-        run: echo '::set-output name=test::$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)'
+        run: |
+          VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
+          echo "::set-output name=test::$VERSION"
         id: maven-release
-    outputs:
-        release_version: ${{ steps.maven-release.outputs.test }}
-    
-  release:
-    needs: build_and_test
-    runs-on: ubuntu-latest
-    steps:
 
       - name: Step 6.5 - Echo Maven Release
-        run: echo "test value ${{ needs.build_and_test.outputs.release_version }}"
+        run: echo "test value ${{ steps.maven-release.outputs.test }}"
         
       - name: Step 7 - Release
         run: |
@@ -87,4 +82,6 @@ jobs:
           no-fail-on-empty-changeset: "1"
           parameter-overrides: >-
             SourceCodeBucket=test-app-staging-env,
-            SourceBundleName=dev/deployment/roshambo-${{ needs.build_and_test.outputs.release_version }}.jar
+            SourceBundleName=dev/deployment/roshambo-${{ steps.maven-release.outputs.test }}.jar
+    outputs:
+        release_version: ${{ steps.maven-release.outputs.test }}

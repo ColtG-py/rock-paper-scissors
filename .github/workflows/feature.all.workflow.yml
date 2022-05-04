@@ -51,7 +51,9 @@ jobs:
           path: staging
 
       - name: Step 6 - Collect Maven Release Variable
-        run: echo '::set-output name=test::$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)'
+        run: |
+          VERSION=$( mvn help:evaluate -Dexpression=project.version -q -DforceStdout )
+          echo "::set-output name=test::$VERSION"
         id: maven-release
 
       - name: Step 6.5 - Echo Maven Release
