@@ -19,14 +19,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
-      - name: Step 0 - Collect Maven Release Variable
-        run: |
-          echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
-
-      - name: Step 0.5 - Echo maven release variable
-        run: |
-          echo "none: $RELEASE_VERSION"
-
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Step 1 - Checkout branch from GitHub 
         uses: actions/checkout@v2
@@ -68,6 +60,13 @@ jobs:
           role-duration-seconds: 1200
           aws-region: us-east-1
           role-session-name: TestAccSession
+
+      - name: Step 6 - Collect Maven Release Variable
+        run: echo '::set-output name=test::$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)'
+        id: maven-release
+
+      - name: Step 6.5 - Echo Maven Release
+        run: echo "test value ${{ steps.maven-release.outputs.test }}"
         
       - name: Step 7 - Release
         run: |
@@ -79,4 +78,4 @@ jobs:
         with:
           name: RoShamBo
           template: infra/SpringDeployment.template
-          parameter-overrides: "SourceCodeBucket=test-app-staging-env,SourceBundleName=dev/deployment/roshambo-0.0.2-SNAPSHOT.jar"
+          parameter-overrides: "SourceCodeBucket=test-app-staging-env,SourceBundleName=dev/deployment/roshambo-{{ steps.maven-release.outputs.test }}.jar"
