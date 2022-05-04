@@ -25,7 +25,6 @@ jobs:
 
       - name: Step 0.5 - Echo maven release variable
         run: |
-          echo "double bracket: ${{ RELEASE_VERSION }}"
           echo "none: $RELEASE_VERSION"
 
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
