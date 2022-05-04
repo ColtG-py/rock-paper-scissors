@@ -25,6 +25,12 @@ jobs:
         run: echo "The selected color is ${{ steps.random-color-generator.outputs.SELECTED_COLOR }}"
 
       - name: Step 0 - Collect Maven Release Variable
+        run: echo '::set-output name=test::value'
+        id: maven-release
+      - name: Step 0.5 - Echo Maven Release
+        run: echo "test value: ${{ steps.maven-release.outputs.test }}"
+
+      - name: Step 0 - Collect Maven Release Variable
         run: |
           echo ::set-output name=release_version::"$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)"
           echo ::set-output name=test::"sdfsdf"
