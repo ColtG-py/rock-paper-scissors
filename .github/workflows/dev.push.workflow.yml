@@ -15,7 +15,6 @@ jobs:
   build_and_test:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
@@ -64,14 +63,13 @@ jobs:
       - name: Step 6 - Collect Maven Release Variable
         run: echo '::set-output name=test::$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)'
         id: maven-release
-
-      outputs:
-          release_version: ${{ steps.maven-release.outputs.test }}
+    outputs:
+        release_version: ${{ steps.maven-release.outputs.test }}
     
-    release:
-      needs: build_and_test
-      runs_on: ubuntu_latest
-      steps:
+  release:
+    needs: build_and_test
+    runs_on: ubuntu_latest
+    steps:
 
       - name: Step 6.5 - Echo Maven Release
         run: echo "test value ${{ needs.build_and_test.outputs.release_version }}"
