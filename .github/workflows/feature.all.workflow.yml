@@ -20,12 +20,12 @@ jobs:
 
       - name: Step 0 - Collect Maven Release Variable
         run: |
-          echo ::set-output name=release_version::$("echo $(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)")
+          echo ::set-output name=release_version::"$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)"
 
       - name: Step 0.5 - Echo maven release variable
         run: |
           echo "${{ steps.vars.outputs.release_version }}"
-          
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Step 1 - Checkout branch from GitHub 
         uses: actions/checkout@v2
