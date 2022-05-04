@@ -9,14 +9,29 @@ on:
 env:
   SOURCE_CODE_BUCKET: test-app-staging-env/dev/deployment
   SOURCE_BUNDLE_NAME: roshambo-0.0.2-SNAPSHOT.jar
+  
 
 jobs:
   run:
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    env:
+      JAVA_HOME: /usr/lib/jvm/java-17-openjdk/
+    with:
+      ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
+      - name: Step 0 - Collect Maven Release Variable
+        run: |
+          echo "RELEASE_VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_ENV
+
+      - name: Step 0.5 - Echo maven release variable
+        run: |
+          echo "double bracket: ${{ RELEASE_VERSION }}"
+          echo "none: $RELEASE_VERSION"
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Step 1 - Checkout branch from GitHub 
         uses: actions/checkout@v2
