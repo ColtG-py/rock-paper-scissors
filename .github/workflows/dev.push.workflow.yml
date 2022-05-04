@@ -8,7 +8,7 @@ on:
 
 env:
   SOURCE_CODE_BUCKET: test-app-staging-env/dev/deployment
-  SOURCE_BUNDLE_NAME: roshambo-0.0.1-SNAPSHOT.jar
+  SOURCE_BUNDLE_NAME: roshambo-0.0.2-SNAPSHOT.jar
 
 jobs:
   run:
@@ -69,4 +69,4 @@ jobs:
         with:
           name: RoShamBo
           template: infra/SpringDeployment.template
-          parameter-overrides: "SourceCodeBucket=test-app-staging-env,SourceBundleName=dev/deployment/roshambo-0.0.1-SNAPSHOT.jar"
+          parameter-overrides: "SourceCodeBucket=test-app-staging-env,SourceBundleName=dev/deployment/roshambo-0.0.2-SNAPSHOT.jar"
