@@ -46,15 +46,6 @@ jobs:
             --port 22 \
             --cidr $CIDR
 
-      - uses: actions/checkout@v2
-      - name: Step 0 - SonarQube Scan
-        uses: kitabisa/sonarqube-action@v1.1.1
-        env:
-          JAVA_HOME: /usr/lib/jvm/java-11-openjdk
-        with:
-          host: ${{ secrets.SONARQUBE_HOST }}
-          login: ${{ secrets.SONARQUBE_TOKEN }}
-
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Step 1 - Checkout branch from GitHub 
         uses: actions/checkout@v2
@@ -73,6 +64,15 @@ jobs:
         run: |
           mvn -B package --file pom.xml
           mkdir staging && cp target/*.jar staging
+
+      - uses: actions/checkout@v2
+      - name: Step 0 - SonarQube Scan
+        uses: kitabisa/sonarqube-action@v1.1.1
+        env:
+          JAVA_HOME: /usr/lib/jvm/java-11-openjdk
+        with:
+          host: ${{ secrets.SONARQUBE_HOST }}
+          login: ${{ secrets.SONARQUBE_TOKEN }}
 
       - name: Step 4 - Set up a cache for Maven
         uses: actions/cache@v2
