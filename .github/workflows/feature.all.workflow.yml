@@ -40,6 +40,11 @@ jobs:
             --protocol tcp \
             --port 9000 \
             --cidr $CIDR
+          aws ec2 authorize-security-group-ingress \
+            --group-name SonarQubeGithubActionRunners \
+            --protocol tcp \
+            --port 80 \
+            --cidr $CIDR
 
       - uses: actions/checkout@v2
       - name: Step 0 - SonarQube Scan
