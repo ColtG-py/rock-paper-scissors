@@ -32,19 +32,19 @@ jobs:
           aws-region: us-east-1
           role-session-name: TestAccSession
 
-      - name: Step -1 - Whitelist Runner on SonarQube
-        run: |
-          CIDR=${{ steps.ip.outputs.ipv4 }}/32
-          aws ec2 authorize-security-group-ingress \
-            --group-name SonarQubeGithubActionRunners \
-            --protocol tcp \
-            --port 9000 \
-            --cidr $CIDR
-          aws ec2 authorize-security-group-ingress \
-            --group-name SonarQubeGithubActionRunners \
-            --protocol tcp \
-            --port 22 \
-            --cidr $CIDR
+      # - name: Step -1 - Whitelist Runner on SonarQube
+      #   run: |
+      #     CIDR=${{ steps.ip.outputs.ipv4 }}/32
+      #     aws ec2 authorize-security-group-ingress \
+      #       --group-name SonarQubeGithubActionRunners \
+      #       --protocol tcp \
+      #       --port 9000 \
+      #       --cidr $CIDR
+      #     aws ec2 authorize-security-group-ingress \
+      #       --group-name SonarQubeGithubActionRunners \
+      #       --protocol tcp \
+      #       --port 22 \
+      #       --cidr $CIDR
 
       - uses: actions/checkout@v2
         with:
@@ -53,18 +53,21 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 11
+
       - name: Step 1 - Cache SonarQube packages
         uses: actions/cache@v1
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
       - name: Step 2 - Cache Maven packages
         uses: actions/cache@v1
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+
       - name: Step 3 - Build and analyze
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
