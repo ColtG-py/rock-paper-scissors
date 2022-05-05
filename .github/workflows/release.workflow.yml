@@ -2,7 +2,7 @@ name: Release - Build, Test, Scan, Release -> PROD
 
 on:
   release:
-    types: [published]
+    types: [released]
 
 jobs:
   run:
