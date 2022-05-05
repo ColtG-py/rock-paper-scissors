@@ -34,7 +34,7 @@ jobs:
 
       - name: Step -1 - Whitelist Runner on SonarQube
         run: |
-          CIDR={{ steps.ip.outputs.ipv4 }}/32
+          CIDR=${{ steps.ip.outputs.ipv4 }}/32
           aws ec2 authorize-security-group-ingress \
             --group-name SonarQubeGithubActionRunners \
             --protocol tcp \
