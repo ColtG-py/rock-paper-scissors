@@ -18,6 +18,36 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
 
+
+      - name: Step -2 - Get Runner Public IP
+        id: ip
+        uses: haythem/public-ip@v1.2
+
+      - name: Step -1.5 - Configure AWS credentials from Test account
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          role-to-assume: arn:aws:iam::874191363693:role/CloudFormationRole
+          role-duration-seconds: 1200
+          aws-region: us-east-1
+          role-session-name: TestAccSession
+
+      - name: Step -1 - Whitelist Runner on SonarQube
+        run: |
+          aws ec2 authorize-security-group-ingress \
+            --group-name SonarQubeGithubActionRunners \
+            --protocol tcp \
+            --port 9000 \
+            --cidr {{ steps.ip.outputs.ipv4 }}/32
+
+      - uses: actions/checkout@v2
+      - name: Step 0 - SonarQube Scan
+        uses: kitabisa/sonarqube-action@v1.1.0
+        with:
+          host: ${{ secrets.SONARQUBE_HOST }}
+          login: ${{ secrets.SONARQUBE_TOKEN }}
+
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Step 1 - Checkout branch from GitHub 
         uses: actions/checkout@v2
