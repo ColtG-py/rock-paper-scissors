@@ -13,9 +13,12 @@ env:
 
 jobs:
 
-  build_notification:
+  build_and_test:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
       - name: Step 0 - Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -26,12 +29,6 @@ jobs:
           SLACK_TITLE: Building Dev Branch!
           SLACK_USERNAME: Bob The Builder
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
-
-  build_and_test:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
 
       - name: Step 1 - Get Runner Public IP
         id: ip
