@@ -123,8 +123,5 @@ jobs:
           parameter-overrides: >-
             SourceCodeBucket=test-app-staging-env,
             SourceBundleName=dev/deployment/roshambo-${{ steps.maven-release.outputs.test }}.jar
-
-      - name: Step 14 - A11Y Testing
-        run:
     outputs:
         release_version: ${{ steps.maven-release.outputs.test }}
