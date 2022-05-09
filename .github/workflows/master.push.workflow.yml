@@ -104,8 +104,4 @@ jobs:
             --protocol tcp \
             --port 22 \
             --cidr $CIDR
-        
-      - name: Step 13 - Release
-        if: startsWith( github.ref, 'refs/tags/releases/')
-        run: |
-          aws s3 sync target/ s3://test-app-staging-env/prod/
+
