@@ -24,8 +24,8 @@ jobs:
           SLACK_CHANNEL: slack-integration
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://github.com/rtCamp.png?size=48
-          SLACK_MESSAGE: 'Starting a new release to prod :rocket:'
-          SLACK_TITLE: Releaing to prod!
+          SLACK_MESSAGE: 'Starting a new build in dev :rocket:'
+          SLACK_TITLE: Building the dev branch!
           SLACK_USERNAME: Bob The Builder
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
 
