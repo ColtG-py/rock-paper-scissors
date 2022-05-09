@@ -17,6 +17,18 @@ jobs:
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
+
+      - name: Step 0 - Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          SLACK_CHANNEL: slack-integration
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_ICON: https://github.com/rtCamp.png?size=48
+          SLACK_MESSAGE: 'Starting a new release to prod :rocket:'
+          SLACK_TITLE: Releaing to prod!
+          SLACK_USERNAME: Bob The Builder
+          SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK }}
+
       - name: Step 1 - Get Runner Public IP
         id: ip
         uses: haythem/public-ip@v1.2
