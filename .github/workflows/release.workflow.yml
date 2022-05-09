@@ -1,8 +1,8 @@
-name: Release - Build, Test, Scan, Release -> PROD
+name: Release - Build, Test, Scan, Release to PROD
 
 on:
   release:
-    types: [published]
+    types: [released]
 
 jobs:
   run:
