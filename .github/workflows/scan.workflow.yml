@@ -14,7 +14,7 @@ name: "CodeQL: Checking Java project for vulnerabilities..."
 on:
   pull_request:
     # The branches below must be a subset of the branches above
-    branches: [ dev, master ]
+    branches: [ dev ]
   schedule:
     - cron: '27 6 * * 3'
 
